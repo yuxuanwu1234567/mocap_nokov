@@ -9,7 +9,7 @@ on:
                
 jobs:
   eloquent_build:
-    runs-on: ubuntu-19.04
+    runs-on: ubuntu-18.04
     strategy:
         matrix:
           ros_distribution:

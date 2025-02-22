@@ -9,7 +9,7 @@ on:
                
 jobs:
   galactic_build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
     strategy:
         matrix:
           ros_distribution:
@@ -38,4 +38,3 @@ jobs:
             package-name: mocap_nokov
             target-ros2-distro: ${{ matrix.ros_distribution }}
             skip-tests: true
-  
