@@ -9,7 +9,7 @@ on:
                
 jobs:
   eloquent_build:
-    runs-on: Bionic-Beaver
+    runs-on: ubuntu-19.04
     strategy:
         matrix:
           ros_distribution:
