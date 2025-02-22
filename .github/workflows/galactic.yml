@@ -9,7 +9,7 @@ on:
                
 jobs:
   galactic_build:
-    runs-on: ubuntu-20.04
+    runs-on: Focal-Fossa
     strategy:
         matrix:
           ros_distribution:
