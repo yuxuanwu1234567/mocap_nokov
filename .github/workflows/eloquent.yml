@@ -8,7 +8,7 @@ on:
   workflow_dispatch: 
                
 jobs:
-  eloquent_build:
+  build_docker:
     runs-on: ubuntu-latest
     strategy:
         matrix:
