@@ -31,11 +31,11 @@ jobs:
               ros-${{ matrix.ros_distribution }}-roscpp \
               ros-${{ matrix.ros_distribution }}-catkin \
               ros-${{ matrix.ros_distribution }}-roslaunch \
-              os-${{ matrix.ros_distribution }}-roslint
+              ros-${{ matrix.ros_distribution }}-roslint
         - name: Build and test ROS
           uses: ros-tooling/action-ros-ci@v0.3
           with:
             package-name: mocap_nokov
-            target-ros2-distro: ${{ matrix.ros_distribution }}
+            target-ros1-distro: ${{ matrix.ros_distribution }}
             skip-tests: true
   
