@@ -7,6 +7,23 @@ on:
     branches: [master]
   workflow_dispatch: 
 
+test melodic:
+  name:"Ros Melodic Morenia"
+  container:
+    image: ubuntu:bionic
+  runs-on:ubuntu-latest
+  steps:
+  - uses: actions/checkout@v1
+  - uses: actions/setup-node@v1
+    with :
+      node-version:'12.x
+  - run: npm ci
+  - run: npm run build
+  - uses: ./
+    with:
+      required-ros-distributions:melodic
+  - run: test -f /opt/ros/melodic/setup.sh
+
 jobs:
   melodic_build:
     container:
@@ -18,11 +35,7 @@ jobs:
             - melodic
     steps:
         - name: Setup ROS environment
-          uses: docker/setup-qemu-action@v1
-          env:
-            DOCKER_IMAGE: 'arm32v7/ros:melodic-ros-core'
-            BEFORE_INIT: '[[ $(uname -p) == armv7l ]] && exit 42'
-            EXPECT_EXIT_CODE: 42
+          uses: actions/checkout@v2
           with:
             required-ros-distributions: ${{ matrix.ros_distribution }}
         - name: Build and test ROS
