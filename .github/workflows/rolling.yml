@@ -1,4 +1,4 @@
-name: rolling build
+name: rolling build (EOL)
 
 on:
   push:

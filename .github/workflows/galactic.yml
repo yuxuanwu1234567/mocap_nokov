@@ -1,4 +1,4 @@
-name: galactic build
+name: galactic build (EOL)
 
 on:
   push:

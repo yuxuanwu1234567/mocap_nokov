@@ -1,4 +1,4 @@
-name: humble build
+name: humble build (EOL)
 
 on:
   push:

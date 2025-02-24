@@ -1,4 +1,4 @@
-name: jazzy build
+name: jazzy build (EOL)
 on:
   push:
     branches: [ ros2 ]
