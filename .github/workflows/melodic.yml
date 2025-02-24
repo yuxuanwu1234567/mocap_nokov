@@ -19,7 +19,6 @@ jobs:
     steps:
         - name: Setup ROS environment
           uses: docker/setup-qemu-action@v1
-          uses: './'
           env:
             DOCKER_IMAGE: 'arm32v7/ros:melodic-ros-core'
             BEFORE_INIT: '[[ $(uname -p) == armv7l ]] && exit 42'
