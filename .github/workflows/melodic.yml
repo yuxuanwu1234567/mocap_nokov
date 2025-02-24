@@ -20,7 +20,7 @@ jobs:
             - melodic
     steps:
         - name: Setup ROS environment
-          uses: actions/checkout@v2
+          uses: actions/checkout@v1
           with:
             required-ros-distributions: ${{ matrix.ros_distribution }}
         - name: Build and test ROS
