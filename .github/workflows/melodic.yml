@@ -18,13 +18,13 @@ jobs:
             - melodic
     steps:
         - name: Setup ROS environment
-          uses: actions/checkout@v1
+          uses: ros-tooling/setup-ros@v0.5
           with:
             node-version: '14.x'
             required-ros-distributions: ${{ matrix.ros_distribution }}
        
         - name: Build and test ROS
-          uses: actions/setup-node@v1
+          uses: ros-tooling/action-ros-ci@v0.3
           with:
             package-name: mocap_nokov
             target-ros1-distro: ${{ matrix.ros_distribution }}
