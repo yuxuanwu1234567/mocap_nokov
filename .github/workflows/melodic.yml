@@ -22,18 +22,7 @@ jobs:
           with:
             node-version: '12.x'
             required-ros-distributions: ${{ matrix.ros_distribution }}
-        - name: Install system dependencies
-          run: |
-            apt update
-            apt install -y \
-              ros-${{ matrix.ros_distribution }}-geometry-msgs \
-              ros-${{ matrix.ros_distribution }}-tf \
-              ros-${{ matrix.ros_distribution }}-nav-msgs \
-              ros-${{ matrix.ros_distribution }}-dynamic-reconfigure \
-              ros-${{ matrix.ros_distribution }}-roscpp \
-              ros-${{ matrix.ros_distribution }}-catkin \
-              ros-${{ matrix.ros_distribution }}-roslaunch \
-              ros-${{ matrix.ros_distribution }}-roslint
+       
         - name: Build and test ROS
           uses: ros-tooling/action-ros-ci@v0.3
           with:
