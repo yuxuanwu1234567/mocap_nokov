@@ -24,8 +24,8 @@ jobs:
             required-ros-distributions: ${{ matrix.ros_distribution }}
         - name: Install system dependencies
           run: |
-            sudo apt update
-            sudo apt install -y \
+            apt update
+            apt install -y \
               ros-${{ matrix.ros_distribution }}-geometry-msgs \
               ros-${{ matrix.ros_distribution }}-tf \
               ros-${{ matrix.ros_distribution }}-nav-msgs \
