@@ -9,14 +9,21 @@ on:
                             
 jobs:
   melodic_build:
-    runs-on: ubuntu-latest
+    container:
+        image: ubuntu:bionic
+    runs-on : ubuntu-latest
     strategy:
         matrix:
           ros_distribution:
             - melodic
     steps:
         - name: Setup ROS environment
-          uses: ros-tooling/setup-ros@v0.2
+        - uses: actions/checkout@v1
+        - uses: actions/setup-node@v1
+        with :
+          node-version:'12.x
+        - run: npm ci
+        - run: npm run build
           with:
             required-ros-distributions: ${{ matrix.ros_distribution }}
   
