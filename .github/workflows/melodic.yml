@@ -20,6 +20,10 @@ jobs:
         ros_distribution:
           - melodic
     steps:
+      - name: cancle preivious run
+        uses: styfle/cancel-workflow-action@0.10.0
+        with:
+          access_token: ${{ github.token }}
       - name: Install Node.js 20 with glibc 2.17
         run: |
           apt-get update
@@ -49,7 +53,4 @@ jobs:
           package-name: mocap_nokov
           target-ros1-distro: ${{ matrix.ros_distribution }}
           skip-tests: true
-      - name: cancle preivious run
-        uses: styfle/cancel-workflow-action@0.10.0
-        with:
-          access_token: ${{ github.token }}
+      
