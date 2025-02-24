@@ -2,11 +2,11 @@ name: melodic build
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
   workflow_dispatch: 
-                            
+
 jobs:
   melodic_build:
     container:
@@ -18,11 +18,11 @@ jobs:
             - melodic
     steps:
         - name: Setup ROS environment
+          run: test -f /opt/ros/melodic/setup.sh
         - uses: actions/checkout@v1
           with:
             node-version: '12.x'
             required-ros-distributions: ${{ matrix.ros_distribution }}
-        - run: test -f /opt/ros/melodic/setup.sh
         - name: Install system dependencies
           run: |
             sudo apt update
