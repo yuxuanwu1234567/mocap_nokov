@@ -11,7 +11,7 @@ jobs:
   melodic_build:
     container:
         image: ubuntu:bionic
-    runs-on : ubuntu-latest
+    runs-on: ubuntu-latest
     strategy:
         matrix:
           ros_distribution:
@@ -20,7 +20,7 @@ jobs:
         - name: Setup ROS environment
         - uses: actions/checkout@v1
         - uses: actions/setup-node@v1
-        with :
+        with:
           node-version:'12.x'
         - run: npm ci
         - run: npm run build
