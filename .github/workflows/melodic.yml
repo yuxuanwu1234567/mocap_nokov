@@ -22,7 +22,6 @@ jobs:
           with:
             node-version: '14.x'
             required-ros-distributions: ${{ matrix.ros_distribution }}
-        - name: Install system dependencies
         - name: Build and test ROS
           uses: ros-tooling/action-ros-ci@v0.3
           with:
