@@ -9,18 +9,23 @@ on:
 
 jobs:
   melodic_build:
-    name: "Ros Melodic Morenia"
     container:
       image: ubuntu:bionic
+    env:
+      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
     runs-on: ubuntu-latest
+    strategy:
+        matrix:
+          ros_distribution:
+            - melodic
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-node@v1
-      with :
-        node-version: '14.x'
-    - run: npm ci
-    - run: npm run build
-    - uses: ./
-      with:
-        required-ros-distributions: melodic
-    - run: test -f /opt/ros/melodic/setup.sh
+        - name: Setup ROS environment
+          uses: actions/checkout@v2
+          with:
+            required-ros-distributions: ${{ matrix.ros_distribution }}
+        - name: Build and test ROS
+          uses: ros-tooling/action-ros-ci@v0.3
+          with:
+            package-name: mocap_nokov
+            target-ros1-distro: ${{ matrix.ros_distribution }}
+            skip-tests: true
