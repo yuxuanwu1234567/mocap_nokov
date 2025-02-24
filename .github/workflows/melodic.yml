@@ -10,22 +10,34 @@ on:
 jobs:
   melodic_build:
     container:
-      image: ubuntu:bionic
-    env:
-      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+      image: mesonbuild/bionic:latest
+      volumes:
+        - /node20217:/node20217
+        - /node20217:/__e/node20
     runs-on: ubuntu-latest
     strategy:
-        matrix:
-          ros_distribution:
-            - melodic
+      matrix:
+        ros_distribution:
+          - melodic
     steps:
-        - name: Setup ROS environment
-          uses: actions/checkout@v1
-          with:
-            required-ros-distributions: ${{ matrix.ros_distribution }}
-        - name: Build and test ROS
-          uses: ros-tooling/action-ros-ci@v0.3
-          with:
-            package-name: mocap_nokov
-            target-ros1-distro: ${{ matrix.ros_distribution }}
-            skip-tests: true
+      - name: Install Node.js 20 with glibc 2.17
+        run: |
+          apt-get update
+          apt install -y curl
+          curl -LO https://unofficial-builds.nodejs.org/download/release/v20.9.0/node-v20.9.0-linux-x64-glibc-217.tar.xz
+          tar -xf node-v20.9.0-linux-x64-glibc-217.tar.xz --strip-components 1 -C /node20217
+          ldd /__e/node20/bin/node  
+      - name: Setup ROS environment
+        uses: ros-tooling/setup-ros@v0.5
+        with:
+          required-ros-distributions: ${{ matrix.ros_distribution }}
+      - name: Install system dependencies
+        run: |
+          apt update
+          rosdep install --from-paths src -y --ignore-src
+      - name: Build and test ROS
+        uses: ros-tooling/action-ros-ci@v0.3
+        with:
+          package-name: mocap_nokov
+          target-ros1-distro: ${{ matrix.ros_distribution }}
+          skip-tests: true
