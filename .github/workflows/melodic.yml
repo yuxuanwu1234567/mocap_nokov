@@ -18,7 +18,13 @@ jobs:
             - melodic
     steps:
         - name: Setup ROS environment
-          uses: actions/checkout@v2
+          uses: actions/checkout@v4
+          uses: docker/setup-qemu-action@v1
+          uses: './'
+          env:
+            DOCKER_IMAGE: 'arm32v7/ros:melodic-ros-core'
+            BEFORE_INIT: '[[ $(uname -p) == armv7l ]] && exit 42'
+            EXPECT_EXIT_CODE: 42
           with:
             required-ros-distributions: ${{ matrix.ros_distribution }}
         - name: Build and test ROS
