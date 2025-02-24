@@ -8,20 +8,20 @@ on:
   workflow_dispatch: 
 
 test melodic:
-  name:"Ros Melodic Morenia"
+  name: "Ros Melodic Morenia"
   container:
     image: ubuntu:bionic
-  runs-on:ubuntu-latest
+  runs-on: ubuntu-latest
   steps:
   - uses: actions/checkout@v1
   - uses: actions/setup-node@v1
     with :
-      node-version:'12.x
+      node-version: '12.x'
   - run: npm ci
   - run: npm run build
   - uses: ./
     with:
-      required-ros-distributions:melodic
+      required-ros-distributions: melodic
   - run: test -f /opt/ros/melodic/setup.sh
 
 jobs:
