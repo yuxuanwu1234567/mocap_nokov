@@ -18,9 +18,8 @@ jobs:
             - melodic
     steps:
         - name: Setup ROS environment
-          uses: actions/checkout@v1
+          uses: actions/checkout@v2
           with:
-            node-version: '16.x'
             required-ros-distributions: ${{ matrix.ros_distribution }}
         - name: Build and test ROS
           uses: ros-tooling/action-ros-ci@v0.3
