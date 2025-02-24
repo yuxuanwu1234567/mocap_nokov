@@ -22,8 +22,6 @@ jobs:
         - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-        - run: npm ci
-        - run: npm run build
           with:
             required-ros-distributions: ${{ matrix.ros_distribution }}
   
@@ -45,4 +43,3 @@ jobs:
             package-name: mocap_nokov
             target-ros1-distro: ${{ matrix.ros_distribution }}
             skip-tests: true
-            
