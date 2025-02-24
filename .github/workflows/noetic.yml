@@ -23,24 +23,11 @@ jobs:
           uses: ros-tooling/setup-ros@v0.7
           with:
             required-ros-distributions: ${{ matrix.ros_distribution }}
-  
-        - name: Install system dependencies
-          run: |
-            sudo apt update
-            sudo apt install -y \
-              ros-${{ matrix.ros_distribution }}-geometry-msgs \
-              ros-${{ matrix.ros_distribution }}-tf \
-              ros-${{ matrix.ros_distribution }}-nav-msgs \
-              ros-${{ matrix.ros_distribution }}-dynamic-reconfigure \
-              ros-${{ matrix.ros_distribution }}-roscpp \
-              ros-${{ matrix.ros_distribution }}-catkin \
-              ros-${{ matrix.ros_distribution }}-roslaunch \
-              ros-${{ matrix.ros_distribution }}-roslint
         - name: Build and test ROS
-          uses: ros-tooling/action-ros-ci@v0.3
+          uses: ros-tooling/action-ros-ci@v0.4
           with:
             package-name: mocap_nokov
             target-ros1-distro: ${{ matrix.ros_distribution }}
             skip-tests: true
-            
+
   
