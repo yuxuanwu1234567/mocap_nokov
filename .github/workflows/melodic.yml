@@ -20,7 +20,7 @@ jobs:
         - name: Setup ROS environment
           uses: actions/checkout@v1
           with:
-            node-version: '14.x'
+            node-version: '16.x'
             required-ros-distributions: ${{ matrix.ros_distribution }}
         - name: Build and test ROS
           uses: ros-tooling/action-ros-ci@v0.3
