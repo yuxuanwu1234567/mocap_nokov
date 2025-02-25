@@ -11,7 +11,7 @@ jobs:
   humble_arm32_build:
     container:
       image: rclex/arm32v7_ros_docker:humble
-    runs-on: ubuntu-24.04-arm32v7
+    runs-on: ubuntu-22.04-arm32v7
     strategy:
         matrix:
           ros_distribution:
