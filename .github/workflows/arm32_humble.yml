@@ -32,8 +32,8 @@ jobs:
 
       - name: Install system dependencies
         run: |
-          apt update
-          apt install -y \
+          sudo apt update
+          sudo apt install -y \
             ros-${{ matrix.ros_distribution }}-geometry-msgs \
             ros-${{ matrix.ros_distribution }}-tf2 \
             ros-${{ matrix.ros_distribution }}-tf2-ros \
