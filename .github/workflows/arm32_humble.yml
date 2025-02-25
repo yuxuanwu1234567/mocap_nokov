@@ -17,8 +17,8 @@ jobs:
           ros_distribution:
             - humble
     steps:
-        - name: Wait for container to be ready
-          run: sleep 10
+        - name: Check Docker container status
+          run: docker ps -a
 
         - name: Install system dependencies
           run: |
