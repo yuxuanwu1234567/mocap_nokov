@@ -17,6 +17,7 @@ jobs:
     steps:
       - name: install QEMU
         run: |
+          sudo apt update
           sudo apt install -y qemu qemu-user-static
           sudo docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
           sudo docker pull rclex/arm32v7_ros_docker:humble
