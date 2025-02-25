@@ -19,7 +19,7 @@ jobs:
           sudo docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
       # 拉取 ARM 镜像
       - name: Pull Docker image
-        run: sudo docker pull arm32v7/ros:noetic
+        run: sudo docker pull --platform linux/arm/v7 arm32v7/ros:noetic
 
       # 在容器中运行后续步骤
       - name: Run steps in Docker container
