@@ -1,3 +1,12 @@
+name: humble_arm32 build (EOL)
+
+on:
+  push:
+    branches: [ ros2 ]
+  pull_request:
+    branches: [ ros2 ]
+  workflow_dispatch: 
+                            
 jobs:
   humble_arm32_build:
     container:
