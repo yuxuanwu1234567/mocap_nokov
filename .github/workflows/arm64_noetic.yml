@@ -9,7 +9,7 @@ on:
                             
 jobs:
   noetic_arm64_build:
-    runs-on: ubuntu-20.04-arm
+    runs-on: ubuntu-latest-arm
     strategy:
         matrix:
           ros_distribution:
