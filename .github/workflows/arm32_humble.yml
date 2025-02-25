@@ -9,11 +9,9 @@ on:
                             
 jobs:
   humble_arm32_build:
-    runs-on: ubuntu-22.04
-    strategy:
-      matrix:
-        ros_distribution:
-          - humble
+    runs-on: ubuntu-22.04-ARM32
+    container:
+      image: mesonbuild/bionic:latest
     steps:
       - name: install QEMU
         run: |
