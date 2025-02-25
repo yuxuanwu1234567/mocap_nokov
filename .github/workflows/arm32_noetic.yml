@@ -1,36 +1,46 @@
-name: noetic_arm32 build (EOL)
+name: melodic build
 
 on:
   push:
-    branches: [ ros2 ]
+    branches: [master]
   pull_request:
-    branches: [ ros2 ]
+    branches: [master]
   workflow_dispatch: 
 
 jobs:
-  noetic_arm32_build:
-    runs-on: ubuntu-22.04
+  melodic_build:
+    container:
+      image: mesonbuild/bionic:latest
+      volumes:
+        - /node20217:/node20217
+        - /node20217:/__e/node20
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ros_distribution:
+          - melodic
     steps:
-      # 安装 QEMU 并启用多架构支持
-      - name: Install QEMU
+      - name: Install Node.js 20 with glibc 2.17
         run: |
-          sudo apt update
-          sudo apt install -y qemu qemu-user-static
-          sudo docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-      # 拉取 ARM 镜像
-      - name: Pull Docker image
-        run: sudo docker pull rclex/arm32v7_ros_docker:humble
+          apt-get update
+          apt install -y curl
+          curl -LO https://unofficial-builds.nodejs.org/download/release/v20.9.0/node-v20.9.0-linux-x64-glibc-217.tar.xz
+          tar -xf node-v20.9.0-linux-x64-glibc-217.tar.xz --strip-components 1 -C /node20217
+          ldd /__e/node20/bin/node  
+      - name: cancle preivious run
+        uses: styfle/cancel-workflow-action@0.10.0
+        with:
+          access_token: ${{ github.token }}
+      - name: Setup ROS environment
+        uses: ros-tooling/setup-ros@v0.5
+        with:
+          required-ros-distributions: ${{ matrix.ros_distribution }}
+      - name: Build and test ROS
+        uses: ros-tooling/action-ros-ci@v0.4
+        with:
+          package-name: mocap_nokov
+          target-ros1-distro: ${{ matrix.ros_distribution }}
+          skip-tests: true
+      
 
-      # 在容器中运行后续步骤
-      - name: Run steps in Docker container
-        run: |
-          sudo docker run --rm -v $GITHUB_WORKSPACE:/workspace rclex/arm32v7_ros_docker:humble /bin/bash -c "
-            cd /workspace &&
-            ls &&
-            source ~/ros2_ws/install/local_setup.bash &&
-            mkdir -p ros2_ws/src &&
-            cd ros2_ws/src &&
-            git clone https://github.com/NOKOV-MOCAP/mocap_nokov.git &&
-            cd .. &&
-            colcon build --packages-select mocap_nokov
-          "
+
