@@ -24,6 +24,10 @@ jobs:
           sudo docker pull rclex/arm32v7_ros_docker:humble
           sudo docker run rclex/arm32v7_ros_docker:humble
 
+      - name: source ros2
+        run: |
+          source ~/ros2_ws/install/local_setup.bash
+
       - name: Checkout repository
         uses: actions/checkout@v3
 
