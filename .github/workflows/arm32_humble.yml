@@ -29,7 +29,7 @@ jobs:
             source ~/ros2_ws/install/local_setup.bash &&
             mkdir -p ros2_ws/src &&
             cd ros2_ws/src &&
-            cp -r /workspace/mocap_nokov . &&
+            git clone -b ros2 https://github.com/NOKOV-MOCAP/mocap_nokov.git &&
             cd .. &&
             colcon build --packages-select mocap_nokov
           "
