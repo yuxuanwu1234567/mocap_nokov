@@ -26,11 +26,12 @@ jobs:
         run: |
           sudo docker run --rm -v $GITHUB_WORKSPACE:/workspace arm32v7/ros:noetic /bin/bash -c "
             cd /workspace &&
-            ls &&
-            source ~/ros2_ws/install/local_setup.bash &&
-            mkdir -p ros2_ws/src &&
-            cd ros2_ws/src &&
-            git clone -b ros2 https://github.com/NOKOV-MOCAP/mocap_nokov.git &&
+            mkdir -p ros_ws/src &&
+            cd ros_ws/src &&
+            sudo apt update &&
+            sudo apt install -y git &&
+            git clone https://github.com/NOKOV-MOCAP/mocap_nokov.git &&
             cd .. &&
-            colcon build --packages-select mocap_nokov
+            rosdep install --from-paths src -y --ignore-src &&
+            catkin_make --packages-select mocap_nokov
           "
