@@ -1,4 +1,4 @@
-name: jazzy build (EOL)
+name: jazzy_arm64 build (EOL)
 on:
   push:
     branches: [ ros2 ]
@@ -7,7 +7,7 @@ on:
   workflow_dispatch: 
   
 jobs:
-  jazzy_build:
+  jazzy_arm64_build:
     runs-on: ubuntu-24.04-Arm
     strategy:
         matrix:
@@ -37,4 +37,4 @@ jobs:
           package-name: mocap_nokov
           target-ros2-distro: ${{ matrix.ros_distribution }}
           skip-tests: true
-          
+
