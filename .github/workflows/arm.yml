@@ -1,4 +1,4 @@
-name: foxy build (EOL)
+name: arm build (EOL)
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
   workflow_dispatch: 
                
 jobs:
-  foxy_build:
+  arm_build:
     runs-on: ubuntu-24.04-Arm
     strategy:
         matrix:
