@@ -16,7 +16,7 @@ jobs:
             - humble
     steps:
         - name: Setup ROS environment
-          uses: ros-tooling/setup-ros@v0.6
+          uses: ros-tooling/setup-ros@v0.7
           with:
             required-ros-distributions: ${{ matrix.ros_distribution }}
   
