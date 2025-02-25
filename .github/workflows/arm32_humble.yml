@@ -17,10 +17,10 @@ jobs:
           ros_distribution:
             - humble
     steps:
-      - name: Test Docker Container
-        run: |
-          echo "Testing Docker Container"
-          docker run --rm rclex/arm32v7_ros_docker:humble /bin/bash -c "echo Container started successfully!"
+        - name: Test Docker Container
+          run: |
+            echo "Testing Docker Container"
+            docker run --rm rclex/arm32v7_ros_docker:humble /bin/bash -c "echo Container started successfully!"
 
         - name: Install system dependencies
           run: |
