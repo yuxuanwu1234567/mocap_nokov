@@ -26,7 +26,7 @@ jobs:
         run: |
           sudo docker run --rm -v $GITHUB_WORKSPACE:/workspace rclex/arm32v7_ros_docker:humble /bin/bash -c "
             cd /workspace &&
-            source /opt/ros/humble/setup.bash &&
+            source ~/ros2_ws/install/local_setup.bash &&
             mkdir -p ros2_ws/src &&
             cd ros2_ws/src &&
             cp -r /workspace/mocap_nokov . &&
