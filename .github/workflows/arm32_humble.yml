@@ -6,35 +6,34 @@ on:
   pull_request:
     branches: [ ros2 ]
   workflow_dispatch: 
-                            
+
 jobs:
   humble_arm32_build:
-    runs-on: ubuntu-22.04-ARM32
-    container:
-      image: mesonbuild/bionic:latest
+    runs-on: ubuntu-22.04
     steps:
-      - name: install QEMU
+      # 安装 QEMU 并启用多架构支持
+      - name: Install QEMU
         run: |
           sudo apt update
-          sudo apt install -y qemu-system
           sudo apt install -y qemu qemu-user-static
           sudo docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-          sudo docker pull rclex/arm32v7_ros_docker:humble
-          sudo docker run rclex/arm32v7_ros_docker:humble
+      # 拉取 ARM 镜像
+      - name: Pull Docker image
+        run: sudo docker pull rclex/arm32v7_ros_docker:humble
 
-      - name: source ros2
+      # 在容器中运行后续步骤
+      - name: Run steps in Docker container
         run: |
-          source ~/ros2_ws/install/local_setup.bash
+          sudo docker run --rm -v $GITHUB_WORKSPACE:/workspace rclex/arm32v7_ros_docker:humble /bin/bash -c "
+            cd /workspace &&
+            source /opt/ros/humble/setup.bash &&
+            mkdir -p ros2_ws/src &&
+            cd ros2_ws/src &&
+            cp -r /workspace/mocap_nokov . &&
+            cd .. &&
+            colcon build --packages-select mocap_nokov
+          "
 
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
+      # 检查容器状态
       - name: Check container status
         run: docker ps -a
-
-      - name: Build and test ROS 2
-        uses: ros-tooling/action-ros-ci@v0.3
-        with:
-          package-name: mocap_nokov
-          target-ros2-distro: ${{ matrix.ros_distribution }}
-          skip-tests: true
