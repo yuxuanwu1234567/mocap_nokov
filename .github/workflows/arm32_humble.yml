@@ -1,23 +1,27 @@
-name: humble_arm32 build (EOL)
-
-on:
-  push:
-    branches: [ ros2 ]
-  pull_request:
-    branches: [ ros2 ]
-  workflow_dispatch: 
-                            
 jobs:
   humble_arm32_build:
     container:
       image: rclex/arm32v7_ros_docker:humble
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     strategy:
         matrix:
           ros_distribution:
             - humble
     steps:
+        - name: Wait for container to be ready
+          run: sleep 10
 
+        - name: Install system dependencies
+          run: |
+            apt update
+            apt install -y \
+              ros-${{ matrix.ros_distribution }}-geometry-msgs \
+              ros-${{ matrix.ros_distribution }}-tf2 \
+              ros-${{ matrix.ros_distribution }}-tf2-ros \
+              ros-${{ matrix.ros_distribution }}-ament-cmake \
+              ros-${{ matrix.ros_distribution }}-ament-lint-auto \
+              ros-${{ matrix.ros_distribution }}-ament-lint-common \
+              ros-${{ matrix.ros_distribution }}-rclcpp \
   
         - name: Build and test ROS 2
           uses: ros-tooling/action-ros-ci@v0.3
@@ -25,4 +29,5 @@ jobs:
             package-name: mocap_nokov
             target-ros2-distro: ${{ matrix.ros_distribution }}
             skip-tests: true
+
   
