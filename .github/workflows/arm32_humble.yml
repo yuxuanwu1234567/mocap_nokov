@@ -11,6 +11,10 @@ jobs:
   humble_arm32_build:
     runs-on: ubuntu-22.04
     steps:
+      - name: cancle preivious run
+        uses: styfle/cancel-workflow-action@0.10.0
+        with:
+          access_token: ${{ github.token }}
       # 安装 QEMU 并启用多架构支持
       - name: Install QEMU
         run: |
