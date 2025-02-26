@@ -26,6 +26,7 @@ jobs:
         run: |
           sudo docker run --rm -v $GITHUB_WORKSPACE:/workspace arm32v7/ros:noetic-perception-focal /bin/bash -c "
             cd /workspace &&
+            sudo apt install -y ros-noetic-desktop &&
             mkdir -p ros_ws/src &&
             cd ros_ws/src &&
             sudo apt update &&
