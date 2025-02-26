@@ -31,6 +31,8 @@ jobs:
             mkdir -p ros_ws/src &&
             cd ros_ws/src &&
             apt update &&
+            apt install -y lsb-release &&
+            apt install -y gnupg2 &&
             apt install -y git &&
             apt install -y curl &&
             sh -c 'echo \"deb http://packages.ros.org/ros/ubuntu \$(lsb_release -sc) main\" > /etc/apt/sources.list.d/ros-latest.list' &&
