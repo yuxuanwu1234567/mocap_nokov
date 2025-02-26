@@ -30,14 +30,14 @@ jobs:
             cd /workspace &&
             mkdir -p ros_ws/src &&
             cd ros_ws/src &&
-            sudo apt update &&
-            sudo apt install -y git &&
-            sudo apt install curl &&
-            sudo sh -c 'echo \"deb http://packages.ros.org/ros/ubuntu \$(lsb_release -sc) main\" > /etc/apt/sources.list.d/ros-latest.list' &&
+            apt update &&
+            apt install -y git &&
+            apt install curl &&
+            sh -c 'echo \"deb http://packages.ros.org/ros/ubuntu \$(lsb_release -sc) main\" > /etc/apt/sources.list.d/ros-latest.list' &&
             curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add - &&
-            sudo apt update &&
-            sudo DEBIAN_FRONTEND=noninteractive apt install -y ros-noetic-desktop &&
-            sudo rosdep init &&
+            apt update &&
+            DEBIAN_FRONTEND=noninteractive apt install -y ros-noetic-desktop &&
+            rosdep init &&
             rosdep update &&
             source /opt/ros/noetic/setup.bash &&
             git clone https://github.com/NOKOV-MOCAP/mocap_nokov.git &&
