@@ -25,11 +25,16 @@ jobs:
       - name: Run steps in Docker container
         run: |
           sudo docker run --rm -v $GITHUB_WORKSPACE:/workspace arm32v7/ros:noetic /bin/bash -c "
+            export DEBIAN_FRONTEND=noninteractive &&
+            export DEBIAN_PRIORITY=critical &&
             cd /workspace &&
             mkdir -p ros_ws/src &&
             cd ros_ws/src &&
             sudo apt update &&
             sudo apt install -y ros-noetic-desktop &&
+            rosdep init &&
+            rosdep update &&
+            source /opt/ros/noetic/setup.bash &&
             sudo apt install -y git &&
             git clone https://github.com/NOKOV-MOCAP/mocap_nokov.git &&
             cd .. &&
