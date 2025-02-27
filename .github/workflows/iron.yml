@@ -9,7 +9,7 @@ on:
 
 jobs:
   iron_build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-22.04-Arm
     strategy:
         matrix:
           ros_distribution:
